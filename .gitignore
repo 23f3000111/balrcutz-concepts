@@ -1,0 +1,13 @@
+# Raw client and downloaded material (processed copies live in shared/)
+source-assets/
+# Build and review tooling, notes
+tools/
+docs/
+.playwright-mcp/
+# Earlier BalrCutz work kept beside the concepts, not part of this repository
+BalerCutz-React/
+BalerCutz-V1.html
+BalerCutz Image/
+*.log
+.DS_Store
+Thumbs.db
