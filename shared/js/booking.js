@@ -77,6 +77,20 @@
     return slots(club, barber, iso, dur).length ? 'open' : 'full';
   }
 
+  /* The soonest free chair for a service at either club (any barber), looking up to a week ahead */
+  function nextFree(svcId) {
+    for (let i = 0; i < 7; i++) {
+      const iso = BC.iso(BC.addDays(BC.today(), i));
+      const best = Object.keys(D().clubs).map((c) => {
+        const svc = BC.svcAt(svcId, c);
+        const first = svc && slots(c, 'any', iso, svc.dur)[0];
+        return first ? { club: c, date: iso, time: first.t, barber: first.barber, svc: svcId } : null;
+      }).filter(Boolean).sort((a, b) => a.time - b.time)[0];
+      if (best) return best;
+    }
+    return null;
+  }
+
   /* ---------- money ---------- */
   function quote(s) {
     const lines = [];
@@ -459,6 +473,9 @@
         if (p.addon && BC.svcAt(p.addon, s.club) && !s.addons.includes(p.addon) && p.addon !== s.svc) s.addons.push(p.addon);
         if (p.barber) { const b = BC.barber(p.barber); if (b) { if (b.club !== s.club) switchClub(b.club); s.barber = b.id; } }
         s.time = null; s.assigned = null;
+        /* a day and time can come along too (the "next free chair" link) */
+        if (p.date) { s.date = p.date; const d = BC.fromIso(p.date); s.month = new Date(d.getFullYear(), d.getMonth(), 1); }
+        if (p.date && p.time != null && !isNaN(p.time)) { s.time = +p.time; s.assigned = p.assigned || (s.barber !== 'any' ? s.barber : null); }
         if (rec) { rec = null; s.ref = null; s.paid = false; }
         s.step = p.step && s.svc ? p.step : 1;
         render();
@@ -469,7 +486,7 @@
     return api;
   }
 
-  BC.book = { slots, dayState, quote, commit, ics, waText, shrinkPhoto, STYLE, mount, busyFor, WINDOW_DAYS };
+  BC.book = { slots, dayState, nextFree, quote, commit, ics, waText, shrinkPhoto, STYLE, mount, busyFor, WINDOW_DAYS };
 
   /* Page helper: buttons with data-book="svc:mvp,club:hartamas,barber:laith,step:2" preset the page's widget and scroll to it */
   BC.book.open = (p) => {
@@ -484,7 +501,7 @@
     if (!t || !BC.book.main) return;
     e.preventDefault();
     const p = {};
-    String(t.getAttribute('data-book') || '').split(',').forEach((kv) => { const [k, v] = kv.split(':').map((x) => x && x.trim()); if (k && v) p[k] = k === 'step' ? Number(v) : v; });
+    String(t.getAttribute('data-book') || '').split(',').forEach((kv) => { const [k, v] = kv.split(':').map((x) => x && x.trim()); if (k && v) p[k] = k === 'step' || k === 'time' ? Number(v) : v; });
     BC.book.open(p);
   });
 })();

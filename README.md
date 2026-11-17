@@ -4,7 +4,7 @@ Two concept websites for **BalrCutz Barbershop**, the sports-themed barbershop w
 
 | | Concept | Folder | Look and motion |
 |---|---|---|---|
-| A | The Clubhouse | `site-a-clubhouse/` | Professional, clean and chic. Black with white type and one red; headlines in a heavy Bodoni (Bodoni Moda), the interface in Archivo. The shop's arched mirrors frame the photos and the hero film, and the menu is set like the white price card on the shop wall. Motion is calm: masked line rises, slow clip wipes, soft parallax, nothing bounces. |
+| A | The Clubhouse | `site-a-clubhouse/` | Professional, clean and chic. Black with white type and one red; headlines in Fraunces Black, the interface in Archivo. The hero is exactly one screen tall: their fade film runs the full height on the right, the copy lines up with its top and bottom, and a live "next free chair" line books the soonest slot in one tap. Every section sits on one 12-column grid with a hairline under its heading; the menu is set like the white price card on the shop wall; the two clubs' cards line up row for row. Motion is calm: masked line rises, slow clip wipes, soft parallax, nothing bounces. |
 | B | Game Day | `site-b-gameday/` | The first BalrCutz layout (`BalerCutz-V1.html`) rebuilt section for section: preloader, centred hero, marquee, split about, MVP timeline, services, red stats bar, barbers, reviews, two locations, gallery, socials, final call. Set in one serif family (Roboto Serif, condensed black for the big type). Motion bounces: the badge drops into the hero like a ball, letters land, barbers are jerseys that flip, buttons squash. |
 
 `index.html` at the root is a chooser that links to both.
@@ -31,7 +31,7 @@ Two concept websites for **BalrCutz Barbershop**, the sports-themed barbershop w
 - **Front desk** (`shared/js/desk.js`): the staff view of what the site collects. Bookings (with payment status and the style brief), leads with the topics they asked about, quote requests and full chat transcripts. Export bookings as CSV. Open it from the footer ("Staff: front desk") or from any confirmation.
 - Both clubs with Google Maps, phone numbers, hours and parking; real Google and Setmore reviews; the shop's own photos and Instagram reels; Instagram, Facebook and WhatsApp links.
 - **Motion**: GSAP with ScrollTrigger and SplitText, Lenis smooth scrolling. Concept A uses the calm set, concept B the bouncy set (`shared/js/fx.js`). `prefers-reduced-motion` turns it off and everything stays visible and usable.
-- Big, bold serif type in both, black first with white and red. Laptop first (checked at 1280, 1366, 1440 and 1920 wide); phones work but were not polished.
+- Big, bold serif type in both, black first with white and red. Laptop first: both heroes fit a 1366 x 768 laptop with its browser bars (about 1366 x 633 of page) as well as 1280, 1440 and 1920 wide; phones work but were not polished.
 
 ## What is not connected yet
 
@@ -71,4 +71,4 @@ Two concept websites for **BalrCutz Barbershop**, the sports-themed barbershop w
 python -m http.server 8765     # then open http://127.0.0.1:8765/
 ```
 
-The build and test tools are kept out of the repository. They include a browser test of every booking path, each payment method, the presets, the chat (gate, one-line booking, prices, places, group quote, fallback), the front desk, downloads, reduced motion and phone width (119 checks across both concepts).
+The build and test tools are kept out of the repository. They include a browser test, run at 1366 x 633, of the hero fit, the next free chair, every booking path, each payment method, the presets, the chat (gate, one-line booking, prices, places, group quote, fallback), the front desk, downloads, reduced motion and phone width (122 checks across both concepts).

@@ -12,7 +12,7 @@
   <meta name="theme-color" content="#000000">
   <link rel="icon" href="../shared/img/favicon.png">
   <link rel="apple-touch-icon" href="../shared/img/apple-touch-icon.png">
-  <link rel="preload" href="../shared/fonts/bodoni-moda.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../shared/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../shared/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../shared/css/base.css">
   <link rel="stylesheet" href="css/site.css">
@@ -22,21 +22,23 @@
   <a class="skip" href="#main">Skip to content</a>
 
   <header class="nav" data-nav>
-    <a class="nav-brand" href="#top" aria-label="BalrCutz, back to the top">
-      <img src="../shared/img/logo/mark-red.png" alt="" width="46" height="33">
-      <span>BalrCutz</span>
-    </a>
-    <nav class="nav-links" aria-label="Sections">
-      <a href="#menu">Menu</a>
-      <a href="#signature">Signature</a>
-      <a href="#barbers">Barbers</a>
-      <a href="#clubs">Clubs</a>
-      <a href="#reviews">Reviews</a>
-    </nav>
-    <div class="nav-end">
-      <button class="nav-chat" type="button" data-chat>Ask Coach</button>
-      <a class="btn btn-light btn-sm" href="#book" data-book="step:1">Book a chair</a>
-      <button class="nav-burger" type="button" data-menu-toggle aria-expanded="false" aria-controls="menu-panel" aria-label="Menu"><span></span><span></span></button>
+    <div class="wrap nav-in">
+      <a class="nav-brand" href="#top" aria-label="BalrCutz, back to the top">
+        <img src="../shared/img/logo/mark-red.png" alt="" width="42" height="30">
+        <span>BalrCutz</span>
+      </a>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="#menu">Menu</a>
+        <a href="#signature">Signature</a>
+        <a href="#barbers">Barbers</a>
+        <a href="#clubs">Clubs</a>
+        <a href="#reviews">Reviews</a>
+      </nav>
+      <div class="nav-end">
+        <button class="nav-chat" type="button" data-chat>Ask Coach</button>
+        <a class="btn btn-light btn-sm" href="#book" data-book="step:1">Book a chair</a>
+        <button class="nav-burger" type="button" data-menu-toggle aria-expanded="false" aria-controls="menu-panel" aria-label="Menu"><span></span><span></span></button>
+      </div>
     </div>
   </header>
 
@@ -53,81 +55,100 @@
   </div>
 
   <main id="main">
-    <!-- Hero: their own tagline, the arched mirror, and a finder that pre-fills the booking -->
+    <!-- Hero: always one screen tall. The film runs the full height on the right; the copy lines up with its top and bottom. -->
     <section class="hero" id="top">
-      <div class="hero-copy">
-        <p class="hero-where" data-reveal="fade">Barbershop in Jaya One, Petaling Jaya and Desa Sri Hartamas, Kuala Lumpur</p>
-        <h1 class="hero-title" data-reveal="lines" data-delay=".15">Step in.<br>Level up.<br>Stay sharp.</h1>
-        <p class="hero-lede" data-reveal="up" data-delay=".75">Precision cuts, fades and grooming in a locker room built for ballers. Open every day, 10am to 11pm.</p>
-        <form class="finder" id="finder" data-reveal="up" data-delay=".9" aria-label="Find a time">
-          <label class="finder-f"><span>Club</span>
-            <select name="club">
-              <option value="jayaone">Jaya One, PJ</option>
-              <option value="hartamas">Hartamas, KL</option>
-            </select>
-          </label>
-          <label class="finder-f finder-svc"><span>Service</span><select name="svc"></select></label>
-          <label class="finder-f"><span>Barber</span><select name="barber"></select></label>
-          <button class="btn btn-red" type="submit">Find a time</button>
-        </form>
-        <p class="hero-proof" data-reveal="fade" data-delay="1.1"><span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span> Rated 5.0 at Jaya One and 4.9 at Hartamas across 2,060 Google reviews</p>
-      </div>
-      <div class="hero-mirror">
-        <div class="mirror-frame">
-          <span class="mirror-line" aria-hidden="true" data-reveal="fade" data-delay=".9"></span>
-          <figure class="mirror" data-reveal="clip" data-delay=".2">
-            <video data-autoplay muted loop playsinline preload="auto" poster="../shared/video/fade.webp" aria-label="A mid fade being finished at BalrCutz Hartamas">
-              <source src="../shared/video/fade.mp4" type="video/mp4">
-            </video>
-          </figure>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="hero-where" data-reveal="fade">Barbershop in Jaya One, Petaling Jaya and Desa Sri Hartamas, Kuala Lumpur</p>
+          <div class="hero-mid">
+            <h1 class="hero-title" data-reveal="lines" data-delay=".1">Step in.<br>Level up.<br>Stay sharp.</h1>
+            <p class="hero-lede" data-reveal="up" data-delay=".55">Precision cuts, fades and grooming in a locker room built for ballers. Open every day, 10am to 11pm.</p>
+          </div>
+          <div class="hero-foot" data-reveal="up" data-delay=".75">
+            <form class="finder" id="finder" aria-label="Find a time">
+              <label class="finder-f"><span>Club</span>
+                <select name="club">
+                  <option value="jayaone">Jaya One, PJ</option>
+                  <option value="hartamas">Hartamas, KL</option>
+                </select>
+              </label>
+              <label class="finder-f finder-svc"><span>Service</span><select name="svc"></select></label>
+              <label class="finder-f"><span>Barber</span><select name="barber"></select></label>
+              <button class="btn btn-red" type="submit">Find a time</button>
+            </form>
+            <p class="next-chair" id="next-chair" aria-live="polite"></p>
+          </div>
         </div>
+        <figure class="hero-film" data-reveal="clip" data-delay=".15">
+          <video data-autoplay muted loop playsinline preload="auto" poster="../shared/video/fade.webp" aria-label="A mid fade being finished at BalrCutz Hartamas">
+            <source src="../shared/video/fade.mp4" type="video/mp4">
+          </video>
+          <figcaption>Fade work at Hartamas</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Hours and the two clubs, in the same columns as everything below -->
+    <section class="facts" aria-label="Hours and ratings">
+      <div class="wrap facts-grid">
+        <div class="fact"><span class="fact-k">Open every day</span><span class="fact-v">10am to 11pm at both clubs</span></div>
+        <div class="fact"><span class="fact-k">Jaya One, Petaling Jaya</span><span class="fact-v"><span class="stars" aria-hidden="true">&#9733;</span> 5.0 on Google from 1,227 reviews</span></div>
+        <div class="fact"><span class="fact-k">Desa Sri Hartamas, KL</span><span class="fact-v"><span class="stars" aria-hidden="true">&#9733;</span> 4.9 on Google from 833 reviews</span></div>
+        <div class="fact"><span class="fact-k">First visit</span><span class="fact-v">Cut and wash for RM 39</span></div>
       </div>
     </section>
 
     <!-- The line painted on their locker-room wall -->
     <section class="wall" aria-labelledby="wall-quote">
-      <div class="wall-media"><img src="../shared/img/shop/ht-lockers.webp" alt="The locker room at BalrCutz Hartamas, with numbered lockers, red benches and turf" width="1600" height="1200" loading="lazy" data-parallax=".14"></div>
-      <div class="wall-copy">
+      <div class="wall-media"><img src="../shared/img/shop/ht-lockers.webp" alt="The locker room at BalrCutz Hartamas, with numbered lockers, red benches and turf" width="1600" height="1200" loading="lazy" data-parallax=".12"></div>
+      <div class="wrap wall-copy">
         <blockquote>
           <p id="wall-quote" class="wall-quote" data-reveal="lines">You are only game ready when you have your fade ready.</p>
         </blockquote>
-        <p class="wall-cap" data-reveal="fade" data-delay=".4">Painted on the locker room wall at Hartamas</p>
+        <p class="wall-cap" data-reveal="fade" data-delay=".3">Painted on the locker room wall at Hartamas</p>
       </div>
     </section>
 
     <section class="intro" aria-label="About BalrCutz">
-      <p class="intro-text" data-reveal="words">More than a barbershop. BalrCutz is where style meets sport: the energy of the locker room, the precision of the greatest athletes, and a chair built for winners.</p>
-      <div class="intro-side" data-reveal="up" data-delay=".2">
-        <p>Two clubs, seven barbers and one standard. Every cut starts with a consultation and ends when you are game ready. First visit? Your cut and wash is RM 39.</p>
-        <a class="link-arrow" href="#menu">See the menu</a>
+      <div class="wrap intro-grid">
+        <p class="intro-text" data-reveal="lines">More than a barbershop. BalrCutz is where style meets sport: the energy of the locker room, the precision of the greatest athletes, and a chair built for winners.</p>
+        <div class="intro-side" data-reveal="up" data-delay=".15">
+          <p>Two clubs, seven barbers and one standard. Every cut starts with a consultation and ends when you are game ready.</p>
+          <a class="link-arrow" href="#menu">See the menu</a>
+        </div>
       </div>
     </section>
 
     <!-- The menu, set like the white price card on their wall -->
     <section class="menu" id="menu" aria-labelledby="menu-title">
-      <header class="menu-head">
-        <h2 id="menu-title" class="sec-title" data-reveal="lines">The menu</h2>
-        <div class="menu-tools" data-reveal="up" data-delay=".2">
-          <div class="seg" role="group" aria-label="Show prices for">
-            <button type="button" aria-pressed="true" data-menu-club="jayaone">Jaya One</button>
-            <button type="button" aria-pressed="false" data-menu-club="hartamas">Hartamas</button>
+      <div class="wrap">
+        <header class="sec-head">
+          <h2 id="menu-title" class="sec-title" data-reveal="lines">The menu</h2>
+          <div class="sec-tools" data-reveal="up" data-delay=".15">
+            <div class="seg" role="group" aria-label="Show prices for">
+              <button type="button" aria-pressed="true" data-menu-club="jayaone">Jaya One</button>
+              <button type="button" aria-pressed="false" data-menu-club="hartamas">Hartamas</button>
+            </div>
+            <p>Prices in ringgit, as on our booking pages. Tap a line to book it.</p>
           </div>
-          <p>Prices in ringgit, as listed on our booking pages. Tap a line to book it.</p>
-        </div>
-      </header>
-      <div class="menu-cols" id="menu-list" aria-live="polite"></div>
+        </header>
+        <div class="menu-cols" id="menu-list" aria-live="polite"></div>
+      </div>
     </section>
 
     <section class="sig" id="signature" aria-labelledby="sig-title">
-      <h2 id="sig-title" class="sec-title" data-reveal="lines">Signature sessions</h2>
-      <div class="sig-grid">
-        <article class="sig-card">
-          <figure class="sig-photo arch" data-reveal="clip"><img src="../shared/img/pro/pomade.webp" alt="A BalrCutz barber working pomade into a finished cut" width="1100" height="1467" loading="lazy"></figure>
-          <div class="sig-body">
+      <div class="wrap">
+        <header class="sec-head">
+          <h2 id="sig-title" class="sec-title" data-reveal="lines">Signature sessions</h2>
+          <p class="sec-note" data-reveal="up" data-delay=".15">The two longest sessions on the menu, for a big day or a full reset.</p>
+        </header>
+        <div class="sig-grid" data-reveal="stagger">
+          <article class="sig-card">
+            <figure class="sig-photo"><img src="../shared/img/pro/pomade.webp" alt="A BalrCutz barber working pomade into a finished cut" width="1100" height="1467" loading="lazy"></figure>
             <p class="sig-where">At both clubs</p>
-            <h3 class="sig-name" data-reveal="lines">The MVP Package</h3>
+            <h3 class="sig-name">The MVP Package</h3>
             <p class="sig-text">A pro-level refresh for a clean, camera-ready finish.</p>
-            <ol class="sig-steps" data-reveal="stagger">
+            <ol class="sig-steps">
               <li>Consultation with your barber</li>
               <li>Precision cut</li>
               <li>Deep cleanse wash</li>
@@ -135,15 +156,13 @@
             </ol>
             <p class="sig-price"><strong>RM 200</strong> <span>90 min at Jaya One, 60 min at Hartamas</span></p>
             <a class="btn btn-light" href="#book" data-book="svc:mvp,step:1">Book the MVP Package</a>
-          </div>
-        </article>
-        <article class="sig-card">
-          <figure class="sig-photo arch" data-reveal="clip" data-delay=".15"><img src="../shared/img/reel/vip.webp" alt="The neon VIP area sign at BalrCutz Hartamas" width="900" height="1125" loading="lazy"></figure>
-          <div class="sig-body">
+          </article>
+          <article class="sig-card">
+            <figure class="sig-photo"><img src="../shared/img/reel/vip.webp" alt="The neon VIP area sign at BalrCutz Hartamas" width="900" height="1125" loading="lazy"></figure>
             <p class="sig-where">Hartamas only</p>
-            <h3 class="sig-name" data-reveal="lines">The VIP Room</h3>
+            <h3 class="sig-name">The VIP Room</h3>
             <p class="sig-text">Our private room, for the full session with nobody waiting behind you.</p>
-            <ul class="sig-list" data-reveal="stagger">
+            <ul class="sig-steps sig-list">
               <li>Premium haircut and wash</li>
               <li>Full facial</li>
               <li>Keratin-infused hair treatment</li>
@@ -151,49 +170,53 @@
             </ul>
             <p class="sig-price"><strong>RM 250</strong> <span>90 min, private room</span></p>
             <a class="btn btn-light" href="#book" data-book="svc:vip,club:hartamas,step:1">Book the VIP Room</a>
-          </div>
-        </article>
+          </article>
+        </div>
       </div>
     </section>
 
     <section class="roster" id="barbers" aria-labelledby="roster-title">
-      <header class="roster-head">
-        <h2 id="roster-title" class="sec-title" data-reveal="lines">Seven barbers.<br>Two clubs.</h2>
-        <div class="seg" role="group" aria-label="Show barbers at" data-reveal="up" data-delay=".2">
-          <button type="button" aria-pressed="true" data-roster="all">All</button>
-          <button type="button" aria-pressed="false" data-roster="jayaone">Jaya One</button>
-          <button type="button" aria-pressed="false" data-roster="hartamas">Hartamas</button>
-        </div>
-      </header>
-      <ol class="roster-list" id="roster-list"></ol>
-      <figure class="roster-float" aria-hidden="true"><img alt="" src="../shared/img/team/micheal-bw.webp" width="320" height="400"></figure>
+      <div class="wrap">
+        <header class="sec-head">
+          <h2 id="roster-title" class="sec-title" data-reveal="lines">Seven barbers. Two clubs.</h2>
+          <p class="sec-note" data-reveal="up" data-delay=".15">Book a barber by name, or take the first free chair.</p>
+        </header>
+        <div class="roster-grid" id="roster" data-reveal="stagger"></div>
+      </div>
     </section>
 
     <section class="book" id="book" aria-labelledby="book-title">
-      <header class="book-head">
-        <h2 id="book-title" class="sec-title" data-reveal="lines">Reserve your chair</h2>
-        <div class="book-intro" data-reveal="up" data-delay=".2">
-          <p>Choose a service, a barber and a time. Pay a deposit by DuitNow QR, bank transfer or Touch 'n Go eWallet, or pay at the shop.</p>
-          <p class="book-alt">Rather chat? <button class="link" type="button" data-chat="book">Ask Coach to book it</button></p>
-        </div>
-      </header>
-      <div id="bk-main" data-reveal="fade" data-delay=".1"></div>
+      <div class="wrap">
+        <header class="sec-head">
+          <h2 id="book-title" class="sec-title" data-reveal="lines">Reserve your chair</h2>
+          <div class="sec-note" data-reveal="up" data-delay=".15">
+            <p>Choose a service, a barber and a time. Pay a deposit by DuitNow QR, bank transfer or Touch 'n Go eWallet, or pay at the shop.</p>
+            <p class="book-alt">Rather chat? <button class="link" type="button" data-chat="book">Ask Coach to book it</button></p>
+          </div>
+        </header>
+        <div id="bk-main" data-reveal="fade"></div>
+      </div>
     </section>
 
     <section class="clubs" id="clubs" aria-labelledby="clubs-title">
-      <h2 id="clubs-title" class="sec-title" data-reveal="lines">Two clubs</h2>
-      <div class="clubs-grid" id="clubs-grid"></div>
+      <div class="wrap">
+        <header class="sec-head">
+          <h2 id="clubs-title" class="sec-title" data-reveal="lines">Two clubs</h2>
+          <p class="sec-note" data-reveal="up" data-delay=".15">Same menu, same standard. Hartamas adds the locker room and the VIP Room.</p>
+        </header>
+        <div class="clubs-grid" id="clubs-grid" data-reveal="stagger"></div>
+      </div>
     </section>
 
     <section class="reviews" id="reviews" aria-labelledby="reviews-title">
-      <h2 id="reviews-title" class="sr-only">Reviews</h2>
-      <div class="rv">
+      <div class="wrap rv">
+        <h2 id="reviews-title" class="sr-only">Reviews</h2>
         <figure class="rv-quote" id="rv-quote" aria-live="polite">
           <blockquote><p id="rv-text"></p></blockquote>
           <figcaption id="rv-by"></figcaption>
         </figure>
         <div class="rv-side">
-          <p class="rv-score"><span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 5.0 at Jaya One from 1,227 Google reviews. 4.9 at Hartamas from 833.</p>
+          <p class="rv-score"><span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span><br>5.0 at Jaya One from 1,227 Google reviews. 4.9 at Hartamas from 833.</p>
           <div class="rv-nav">
             <button type="button" class="rv-btn" id="rv-prev" aria-label="Previous review">&#8592;</button>
             <span id="rv-count" aria-hidden="true">1 / 8</span>
@@ -204,34 +227,38 @@
     </section>
 
     <section class="ig" aria-labelledby="ig-title">
-      <header class="ig-head">
-        <h2 id="ig-title" class="ig-title" data-reveal="lines">From the chair</h2>
-        <a class="link-arrow" href="https://www.instagram.com/balrcutz/" target="_blank" rel="noopener">@balrcutz on Instagram</a>
-      </header>
-      <div class="ig-grid" data-reveal="stagger">
-        <a class="ig-tile" href="https://www.instagram.com/balrcutz/reel/DRPA_7CEvmE/" target="_blank" rel="noopener" aria-label="Reel: the Hartamas opening, locker room tour">
-          <video data-autoplay muted loop playsinline preload="none" poster="../shared/video/lockers.webp"><source src="../shared/video/lockers.mp4" type="video/mp4"></video>
-        </a>
-        <a class="ig-tile" href="https://www.instagram.com/balrcutz/reel/DfmTlaFSLUH/" target="_blank" rel="noopener" aria-label="Reel: a sectioned cut with clipper work">
-          <video data-autoplay muted loop playsinline preload="none" poster="../shared/video/sections.webp"><source src="../shared/video/sections.mp4" type="video/mp4"></video>
-        </a>
-        <a class="ig-tile" href="https://www.instagram.com/balrcutz/reel/Dey1R01gUAp/" target="_blank" rel="noopener" aria-label="Reel: cape on under the hexagon lights">
-          <video data-autoplay muted loop playsinline preload="none" poster="../shared/video/chair.webp"><source src="../shared/video/chair.mp4" type="video/mp4"></video>
-        </a>
-        <a class="ig-tile" href="https://www.instagram.com/balrcutz/reel/DRPA_7CEvmE/" target="_blank" rel="noopener" aria-label="Reel: the BalrCutz barbers in their jerseys">
-          <video data-autoplay muted loop playsinline preload="none" poster="../shared/video/team.webp"><source src="../shared/video/team.mp4" type="video/mp4"></video>
-        </a>
+      <div class="wrap">
+        <header class="sec-head">
+          <h2 id="ig-title" class="sec-title" data-reveal="lines">From the chair</h2>
+          <a class="link-arrow" href="https://www.instagram.com/balrcutz/" target="_blank" rel="noopener">@balrcutz on Instagram</a>
+        </header>
+        <div class="ig-grid" data-reveal="stagger">
+          <a class="ig-tile" href="https://www.instagram.com/balrcutz/reel/DRPA_7CEvmE/" target="_blank" rel="noopener" aria-label="Reel: the Hartamas locker room">
+            <video data-autoplay muted loop playsinline preload="none" poster="../shared/video/lockers.webp"><source src="../shared/video/lockers.mp4" type="video/mp4"></video>
+          </a>
+          <a class="ig-tile" href="https://www.instagram.com/balrcutz/reel/DfmTlaFSLUH/" target="_blank" rel="noopener" aria-label="Reel: a sectioned cut with clipper work">
+            <video data-autoplay muted loop playsinline preload="none" poster="../shared/video/sections.webp"><source src="../shared/video/sections.mp4" type="video/mp4"></video>
+          </a>
+          <a class="ig-tile" href="https://www.instagram.com/balrcutz/reel/Dey1R01gUAp/" target="_blank" rel="noopener" aria-label="Reel: cape on under the hexagon lights">
+            <video data-autoplay muted loop playsinline preload="none" poster="../shared/video/chair.webp"><source src="../shared/video/chair.mp4" type="video/mp4"></video>
+          </a>
+          <a class="ig-tile" href="https://www.instagram.com/balrcutz/reel/DRPA_7CEvmE/" target="_blank" rel="noopener" aria-label="Reel: the BalrCutz barbers in their jerseys">
+            <video data-autoplay muted loop playsinline preload="none" poster="../shared/video/team.webp"><source src="../shared/video/team.mp4" type="video/mp4"></video>
+          </a>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="foot">
-    <div class="foot-top">
+    <div class="wrap foot-top">
       <img class="foot-mark" src="../shared/img/logo/wordmark-light.png" alt="BalrCutz Barbershop, established 2025" width="360" height="181" loading="lazy">
-      <p class="foot-line">Step in. Level up. Stay sharp.</p>
-      <a class="btn btn-red" href="#book" data-book="step:1">Book a chair</a>
+      <div class="foot-cta">
+        <p class="foot-line">Step in. Level up. Stay sharp.</p>
+        <a class="btn btn-red" href="#book" data-book="step:1">Book a chair</a>
+      </div>
     </div>
-    <div class="foot-cols">
+    <div class="wrap foot-cols">
       <div>
         <h3>Jaya One</h3>
         <p>D-55-P2, Block D, Jaya One<br>Jalan Profesor Diraja Ungku Aziz<br>46200 Petaling Jaya</p>
@@ -251,7 +278,7 @@
         <p><a href="https://wa.me/60126061715" target="_blank" rel="noopener">WhatsApp +60 12-606 1715</a><br><a href="mailto:balrcutz@gmail.com">balrcutz@gmail.com</a><br><a href="https://www.instagram.com/balrcutz/" target="_blank" rel="noopener">Instagram @balrcutz</a><br><a href="https://www.facebook.com/people/BalrCutz-Barbershop/61573765353855/" target="_blank" rel="noopener">Facebook</a></p>
       </div>
     </div>
-    <div class="foot-base">
+    <div class="wrap foot-base">
       <p>&copy; <span data-year>2026</span> BalrCutz Barbershop. Concept website, not the live site: bookings and payments here are a demo.</p>
       <p><button class="link" type="button" data-desk="booking">Staff: open the front desk</button></p>
     </div>

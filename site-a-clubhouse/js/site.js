@@ -1,5 +1,5 @@
-/* Concept A, The Clubhouse: renders the menu, roster, clubs and reviews from BC.data, mounts the booking widget and the chat,
-   and runs the calm motion personality. */
+/* Concept A, The Clubhouse: renders the menu, roster, clubs and reviews from BC.data, shows the next free chair,
+   mounts the booking widget and the chat, and runs the calm motion personality. */
 (() => {
   const BC = window.BC;
   const { h } = BC;
@@ -29,6 +29,22 @@
     });
   }
 
+  /* The soonest free chair for a cut and wash, from the same availability the booking uses */
+  function nextChair() {
+    const el = BC.$('#next-chair');
+    if (!el) return;
+    const n = BC.book.nextFree('cut-wash');
+    el.innerHTML = '';
+    if (!n) return;
+    const today = BC.iso(BC.today()), tomorrow = BC.iso(BC.addDays(BC.today(), 1));
+    const day = n.date === today ? 'today' : n.date === tomorrow ? 'tomorrow' : BC.shortDate(n.date);
+    el.append(
+      h('span.next-dot', { 'aria-hidden': 'true' }),
+      h('span', ['Next free chair: ', h('strong', day + ' at ' + BC.clock(n.time)), ' with ' + BC.barber(n.barber).name + ' at ' + D.clubs[n.club].name + '.']),
+      h('button.link', { type: 'button', on: { click: () => BC.book.open({ club: n.club, svc: 'cut-wash', barber: n.barber, date: n.date, time: n.time, assigned: n.barber, step: 2 }) } }, 'Take it'),
+    );
+  }
+
   /* The menu: two columns of categories, dotted leaders, a line per service */
   let menuClub = 'jayaone';
   function menu() {
@@ -54,85 +70,62 @@
     BC.$$('[data-menu-club]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.menuClub === menuClub)));
   }
 
-  /* Roster: names set large; a portrait follows the pointer on hover */
-  let rosterClub = 'all';
+  /* Roster: one column per club, a row per barber, everything on the same row lines */
   function roster() {
-    const list = BC.$('#roster-list');
-    list.innerHTML = '';
-    BC.teamAt(rosterClub === 'all' ? null : rosterClub).forEach((b) => {
-      list.appendChild(h('li.rrow', { data: { photo: BC.asset(b.photo + '-bw.webp') } }, h('button.rrow-btn', { type: 'button', 'data-book': 'barber:' + b.id + ',step:1' }, [
-        h('img.rrow-thumb', { src: BC.asset(b.photo + '-bw.webp'), alt: '', loading: 'lazy', width: 64, height: 80 }),
-        h('span.rrow-name', b.full || b.name),
-        h('span.rrow-meta', [h('span.rrow-role', b.role + (b.years ? ', ' + b.years + ' years' : '')), h('span.rrow-skill', b.skills)]),
-        h('span.rrow-club', D.clubs[b.club].name),
-        h('span.rrow-cta', 'Book ' + b.name),
-      ])));
+    const box = BC.$('#roster');
+    Object.values(D.clubs).forEach((c) => {
+      box.appendChild(h('div.roster-col', [
+        h('h3.roster-club', [c.name, h('span', BC.teamAt(c.id).length + ' barbers')]),
+        h('ul.roster-list', BC.teamAt(c.id).map((b) => h('li.rrow', [
+          h('img.rrow-photo', { src: BC.asset(b.photo + '-bw.webp'), alt: '', loading: 'lazy', width: 72, height: 90 }),
+          h('div.rrow-who', [h('span.rrow-name', b.full || b.name), h('span.rrow-role', b.role + (b.years ? ', ' + b.years + ' years' : ''))]),
+          h('span.rrow-skill', b.skills),
+          h('button.btn.btn-ghost.btn-xs', { type: 'button', 'data-book': 'barber:' + b.id + ',step:1', 'aria-label': 'Book ' + (b.full || b.name) }, 'Book'),
+        ]))),
+      ]));
     });
-    BC.$$('[data-roster]').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.roster === rosterClub)));
-  }
-  function rosterFloat() {
-    const fig = BC.$('.roster-float'), img = fig && fig.querySelector('img'), sec = BC.$('#barbers');
-    if (!fig || matchMedia('(hover: none)').matches) return;
-    const g = window.gsap;
-    let qx = null, qy = null;
-    if (g && !BC.reducedMotion()) { qx = g.quickTo(fig, 'x', { duration: 0.7, ease: 'power3' }); qy = g.quickTo(fig, 'y', { duration: 0.7, ease: 'power3' }); }
-    sec.addEventListener('pointermove', (e) => {
-      const r = sec.getBoundingClientRect();
-      const x = e.clientX - r.left - 140, y = e.clientY - r.top - 190;
-      if (qx) { qx(x); qy(y); } else { fig.style.transform = 'translate(' + x + 'px,' + y + 'px)'; }
-    });
-    sec.addEventListener('pointerover', (e) => {
-      const row = e.target.closest('.rrow');
-      if (row) { if (img.getAttribute('src') !== row.dataset.photo) img.src = row.dataset.photo; fig.classList.add('is-on'); }
-    });
-    sec.addEventListener('pointerout', (e) => { const row = e.target.closest('.rrow'); if (row && !row.contains(e.relatedTarget)) fig.classList.remove('is-on'); });
   }
 
+  /* Clubs: two cards whose rows line up (CSS subgrid), whatever the length of each address or note */
   function clubs() {
     const grid = BC.$('#clubs-grid');
-    Object.values(D.clubs).forEach((c, i) => {
+    Object.values(D.clubs).forEach((c) => {
       grid.appendChild(h('article.club', [
-        h('figure.club-photo.arch', { 'data-reveal': 'clip', 'data-delay': String(i * 0.15) }, h('img', { src: BC.asset(c.photo), alt: c.id === 'jayaone' ? 'The BalrCutz storefront at Jaya One, Petaling Jaya' : 'The locker room at BalrCutz Hartamas', loading: 'lazy', width: 1000, height: 1250 })),
-        h('div.club-body', [
-          h('p.club-tag', c.tag),
-          h('h3.club-name', c.name),
-          h('p.club-addr', c.address),
-          h('dl.club-facts', [
-            h('div', [h('dt', 'Hours'), h('dd', 'Every day, 10am to 11pm')]),
-            h('div', [h('dt', 'Phone'), h('dd', h('a', { href: 'tel:' + c.tel }, c.phone))]),
-            h('div', [h('dt', 'Parking'), h('dd', c.parking)]),
-            h('div', [h('dt', 'Google'), h('dd', c.rating.toFixed(1) + ' from ' + c.reviews.toLocaleString('en-GB') + ' reviews')]),
-          ]),
-          h('div.club-actions', [h('a.btn.btn-light.btn-sm', { href: '#book', 'data-book': 'club:' + c.id + ',step:1' }, 'Book at ' + c.name), h('a.btn.btn-ghost.btn-sm', { href: c.maps, target: '_blank', rel: 'noopener' }, 'Directions')]),
+        h('figure.club-photo.is-' + c.id, h('img', { src: BC.asset(c.photo), alt: c.id === 'jayaone' ? 'The BalrCutz storefront at Jaya One, Petaling Jaya' : 'The locker room at BalrCutz Hartamas', loading: 'lazy', width: 1000, height: 1250 })),
+        h('div.club-head', [h('p.club-tag', c.tag), h('h3.club-name', c.name), h('p.club-addr', c.address)]),
+        h('dl.club-facts', [
+          h('div', [h('dt', 'Hours'), h('dd', 'Every day, 10am to 11pm')]),
+          h('div', [h('dt', 'Phone'), h('dd', h('a', { href: 'tel:' + c.tel }, c.phone))]),
+          h('div', [h('dt', 'Parking'), h('dd', c.parking)]),
+          h('div', [h('dt', 'Google'), h('dd', c.rating.toFixed(1) + ' from ' + c.reviews.toLocaleString('en-GB') + ' reviews')]),
         ]),
+        h('div.club-actions', [h('a.btn.btn-light.btn-sm', { href: '#book', 'data-book': 'club:' + c.id + ',step:1' }, 'Book at ' + c.name), h('a.btn.btn-ghost.btn-sm', { href: c.maps, target: '_blank', rel: 'noopener' }, 'Directions')]),
         h('div.club-map', h('iframe', { 'data-src': c.embed, title: 'Map of BalrCutz ' + c.name, loading: 'lazy', referrerpolicy: 'no-referrer-when-downgrade' })),
       ]));
     });
   }
 
-  /* Reviews: one large quote at a time, slow crossfade */
+  /* Reviews: one quote at a time, slow crossfade */
   function reviews() {
     const list = D.reviews;
     let i = 0, timer = null;
     const text = BC.$('#rv-text'), by = BC.$('#rv-by'), count = BC.$('#rv-count'), fig = BC.$('#rv-quote');
+    const put = () => {
+      const r = list[i];
+      text.textContent = r.text;
+      by.textContent = r.name + ', ' + D.clubs[r.club].name + ', via ' + r.source;
+      count.textContent = (i + 1) + ' / ' + list.length;
+    };
     const show = (n) => {
       i = (n + list.length) % list.length;
-      const r = list[i];
-      const put = () => {
-        text.textContent = r.text;
-        by.textContent = r.name + ', ' + D.clubs[r.club].name + ', via ' + r.source;
-        count.textContent = (i + 1) + ' / ' + list.length;
-      };
       if (window.gsap && !BC.reducedMotion()) {
-        window.gsap.to(fig, { autoAlpha: 0, y: -8, duration: 0.45, ease: 'power2.in', onComplete: () => { put(); window.gsap.fromTo(fig, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.9, ease: 'power3.out' }); } });
+        window.gsap.to(fig, { autoAlpha: 0, y: -6, duration: 0.4, ease: 'power2.in', onComplete: () => { put(); window.gsap.fromTo(fig, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power3.out' }); } });
       } else put();
     };
     const auto = () => { clearInterval(timer); timer = setInterval(() => show(i + 1), 9000); };
     BC.$('#rv-prev').addEventListener('click', () => { show(i - 1); auto(); });
     BC.$('#rv-next').addEventListener('click', () => { show(i + 1); auto(); });
-    text.textContent = list[0].text;
-    by.textContent = list[0].name + ', ' + D.clubs[list[0].club].name + ', via ' + list[0].source;
-    count.textContent = '1 / ' + list.length;
+    put();
     if (!BC.reducedMotion()) auto();
   }
 
@@ -143,12 +136,13 @@
     clubs();
     reviews();
     BC.$$('[data-menu-club]').forEach((b) => b.addEventListener('click', () => { menuClub = b.dataset.menuClub; menu(); }));
-    BC.$$('[data-roster]').forEach((b) => b.addEventListener('click', () => { rosterClub = b.dataset.roster; roster(); }));
-    BC.book.main = BC.book.mount(BC.$('#bk-main'), { source: 'Website', offset: 96 });
+    BC.book.main = BC.book.mount(BC.$('#bk-main'), { source: 'Website', offset: 88 });
+    nextChair();
+    BC.on('booked', nextChair);
+    setInterval(nextChair, 60000);
     BC.chatMount({ label: 'Book or ask' });
     BC.ui.init('calm');
     BC.fx.init('calm');
-    rosterFloat();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

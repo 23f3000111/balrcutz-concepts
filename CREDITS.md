@@ -10,7 +10,7 @@ All brand material belongs to BalrCutz Barbershop. It is used here to pitch a we
 - **Facebook** (BalrCutz Barbershop): linked only.
 
 ## Type, libraries, services
-- **Bodoni Moda** (Owen Earl / indestructible type*), **Archivo** (Omnibus-Type) and **Roboto Serif** (Commercial Type for Google), SIL Open Font License 1.1, self-hosted Latin subsets from Google Fonts.
+- **Fraunces** (Undercase Type: Phaedra Charles and Flavia Zimbardi), **Archivo** (Omnibus-Type) and **Roboto Serif** (Commercial Type for Google), SIL Open Font License 1.1, self-hosted Latin subsets from Google Fonts.
 - **GSAP**, **ScrollTrigger** and **SplitText** 3.13 (GreenSock, free under the GSAP "no charge" license), vendored in `shared/js/vendor/`.
 - **Lenis** smooth scroll (darkroom.engineering), MIT License, vendored.
 - **qrcode-generator** 1.4.4 (Kazuhiko Arase), MIT License, vendored. "QR Code" is a registered trademark of DENSO WAVE INCORPORATED.

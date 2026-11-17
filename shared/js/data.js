@@ -39,7 +39,7 @@
       maps: 'https://www.google.com/maps/place/Balr+Cutz+@+Jaya+One/@3.1174942,101.6360544,17z',
       embed: 'https://maps.google.com/maps?q=Balr%20Cutz%20%40%20Jaya%20One%2C%20Petaling%20Jaya&t=&z=16&ie=UTF8&iwloc=&output=embed',
       setmore: 'https://balrcutz.setmore.com/',
-      parking: 'Park in the Jaya One car park and walk over to Block D; we are at D-55.',
+      parking: 'Park in the Jaya One car park, then walk to Block D.',
       photo: 'img/shop/jo-storefront.webp',
     },
     hartamas: {
@@ -57,7 +57,7 @@
       maps: 'https://www.google.com/maps/place/Balr+Cutz+@+Hartamas/@3.1613454,101.649974,17z',
       embed: 'https://maps.google.com/maps?q=Balr%20Cutz%20%40%20Hartamas%2C%20Kuala%20Lumpur&t=&z=16&ie=UTF8&iwloc=&output=embed',
       setmore: 'https://balrcutzhartamas.setmore.com/',
-      parking: 'Street and open-lot parking around Jalan 26A/70A. We are on the 2nd floor of No. 1.',
+      parking: 'Street and open-lot parking around Jalan 26A/70A.',
       photo: 'img/shop/ht-lockers.webp',
     },
   };

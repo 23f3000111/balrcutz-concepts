@@ -9,11 +9,11 @@
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="shared/img/favicon.png">
 <link rel="apple-touch-icon" href="shared/img/apple-touch-icon.png">
-<link rel="preload" href="shared/fonts/bodoni-moda.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="shared/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="shared/fonts/roboto-serif-cond-900.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-  @font-face { font-family: 'Bodoni Moda'; src: url('shared/fonts/bodoni-moda.woff2') format('woff2'); font-weight: 400 900; font-display: swap; }
-  @font-face { font-family: 'Bodoni Moda'; src: url('shared/fonts/bodoni-moda-italic.woff2') format('woff2'); font-weight: 400 900; font-style: italic; font-display: swap; }
+  @font-face { font-family: 'Fraunces'; src: url('shared/fonts/fraunces.woff2') format('woff2'); font-weight: 700 900; font-display: swap; }
+  @font-face { font-family: 'Fraunces'; src: url('shared/fonts/fraunces-italic.woff2') format('woff2'); font-weight: 800; font-style: italic; font-display: swap; }
   @font-face { font-family: 'Archivo'; src: url('shared/fonts/archivo.woff2') format('woff2'); font-weight: 100 900; font-stretch: 62% 125%; font-display: swap; }
   @font-face { font-family: 'Roboto Serif Cond'; src: url('shared/fonts/roboto-serif-cond-900.woff2') format('woff2'); font-weight: 900; font-display: swap; }
   @font-face { font-family: 'Roboto Serif'; src: url('shared/fonts/roboto-serif-text.woff2') format('woff2'); font-weight: 400 700; font-display: swap; }
@@ -27,12 +27,12 @@
   header { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
   .brand { display: flex; align-items: center; gap: 16px; }
   .brand img { width: 74px; }
-  .brand strong { display: block; font: 700 22px/1.1 'Bodoni Moda', serif; }
+  .brand strong { display: block; font: 900 22px/1.1 'Fraunces', serif; }
   .brand span { font-size: 14px; color: var(--mute); }
   .chip { display: inline-flex; align-items: center; gap: 9px; height: 38px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); font-size: 13.5px; font-weight: 600; }
   .chip i { width: 8px; height: 8px; border-radius: 50%; background: #2bd46b; box-shadow: 0 0 0 0 rgba(43,212,107,.6); animation: ping 1.8s infinite; }
   @keyframes ping { 70% { box-shadow: 0 0 0 8px rgba(43,212,107,0); } }
-  h1 { margin: 56px 0 0; max-width: 16ch; font: 800 clamp(52px, 6.6vw, 104px)/.92 'Bodoni Moda', serif; letter-spacing: -.02em; }
+  h1 { margin: 48px 0 0; max-width: 16ch; font: 900 clamp(48px, 6vw, 92px)/.95 'Fraunces', serif; letter-spacing: -.025em; }
   .intro { margin: 24px 0 0; max-width: 68ch; font-size: 18px; color: var(--mute); }
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 50px; }
   .card { position: relative; display: flex; flex-direction: column; border-radius: 6px; background: #fff; color: #000; text-decoration: none; overflow: hidden; transition: transform .6s var(--ease), box-shadow .6s var(--ease); box-shadow: 0 40px 80px -40px rgba(0,0,0,.9); }
@@ -47,7 +47,7 @@
   .shot b { position: absolute; left: 14px; bottom: 14px; padding: 7px 12px; border-radius: 999px; background: rgba(0,0,0,.78); color: #fff; font: 700 12.5px/1 'Archivo', sans-serif; }
   .body { display: grid; gap: 12px; padding: 24px 28px 30px; }
   .label { font-size: 14px; font-weight: 600; color: var(--red); }
-  .title { font: 800 56px/.92 'Bodoni Moda', serif; letter-spacing: -.02em; }
+  .title { font: 900 52px/.95 'Fraunces', serif; letter-spacing: -.02em; }
   .card--b .title { font: 900 64px/.9 'Roboto Serif Cond', serif; text-transform: uppercase; letter-spacing: .01em; }
   .desc { font-size: 16px; max-width: 56ch; color: rgba(0,0,0,.72); }
   .card--b .desc { color: rgba(255,255,255,.72); font-family: 'Roboto Serif', serif; }
@@ -59,7 +59,7 @@
   .card--b .go { background: var(--red); font: 800 15px/1 'Roboto Serif Cond', serif; letter-spacing: .08em; text-transform: uppercase; transition: transform .5s var(--spring); }
   .card--b:hover .go { transform: scale(1.06) rotate(-2deg); }
   .shared { margin-top: 44px; padding: 26px 28px; border-radius: 6px; border: 1px solid var(--line); display: grid; grid-template-columns: auto 1fr; gap: 10px 28px; align-items: start; }
-  .shared strong { font: 700 22px/1.2 'Bodoni Moda', serif; }
+  .shared strong { font: 900 22px/1.2 'Fraunces', serif; }
   .shared ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 15px; color: var(--mute); }
   .shared li::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--red); margin-right: 9px; transform: translateY(-2px); }
   .notes { margin-top: 18px; font-size: 14.5px; color: var(--mute); max-width: 90ch; }
@@ -78,12 +78,12 @@
     <p class="intro">Both concepts run on the shop&rsquo;s real menu and prices from Setmore, the seven barbers, both clubs and real Google reviews. Each has a booking calendar, Coach (a chat that collects the visitor&rsquo;s details, books inside the conversation and gives quotes), and payment by DuitNow QR, bank transfer or Touch &rsquo;n Go eWallet. They differ in look and in how they move.</p>
     <div class="grid">
       <a class="card" href="site-a-clubhouse/">
-        <span class="shot"><img src="shared/img/chooser-a.webp" alt="Preview of The Clubhouse: Step in. Level up. Stay sharp. in large Bodoni type beside an arched mirror playing a fade video" width="1440" height="900"><b>Concept A</b></span>
+        <span class="shot"><img src="shared/img/chooser-a.webp" alt="Preview of The Clubhouse: Step in. Level up. Stay sharp. in large black serif type beside a fade video" width="1440" height="900"><b>Concept A</b></span>
         <span class="body">
           <span class="label">Professional, clean and chic, with elegant motion</span>
           <span class="title">The Clubhouse</span>
-          <span class="desc">Black, white and one red, set in a heavy Bodoni like a sports magazine cover. The arched mirrors from the shop frame the photos, the menu reads like the white price card on the wall, and every movement is slow and soft.</span>
-          <span class="tags"><span>Arched mirror hero film</span><span>Finder that pre-fills the booking</span><span>White price card</span><span>Roster with portraits on hover</span></span>
+          <span class="desc">Black, white and one red, with headlines in Fraunces Black. A one-screen hero with their fade film and a live "next free chair", the menu set like the white price card on the shop wall, and every section on one tight grid. Every movement is slow and soft.</span>
+          <span class="tags"><span>One-screen hero film</span><span>Finder that pre-fills the booking</span><span>White price card</span><span>Next free chair</span></span>
           <span class="go">Open The Clubhouse</span>
         </span>
       </a>
