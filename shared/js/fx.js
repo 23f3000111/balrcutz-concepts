@@ -132,6 +132,19 @@
       });
     }
 
+    /* When the page changes height (booking steps, filtered grids, the menu switching club), every trigger below is measured
+       against the old layout and fires late or never. Re-measure after any real change in height. */
+    if ('ResizeObserver' in window) {
+      let lastH = document.body.scrollHeight, t = null;
+      new ResizeObserver(() => {
+        const hgt = document.body.scrollHeight;
+        if (Math.abs(hgt - lastH) < 4) return;
+        lastH = hgt;
+        clearTimeout(t);
+        t = setTimeout(() => ST.refresh(), 180);
+      }).observe(document.body);
+    }
+
     html.classList.add('fx-ready');
     BC.emit('fx:ready', mode);
     addEventListener('load', () => ST.refresh());

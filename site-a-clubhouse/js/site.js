@@ -77,8 +77,12 @@
       box.appendChild(h('div.roster-col', [
         h('h3.roster-club', [c.name, h('span', BC.teamAt(c.id).length + ' barbers')]),
         h('ul.roster-list', BC.teamAt(c.id).map((b) => h('li.rrow', [
-          h('img.rrow-photo', { src: BC.asset(b.photo + '-bw.webp'), alt: '', loading: 'lazy', width: 72, height: 90 }),
-          h('div.rrow-who', [h('span.rrow-name', b.full || b.name), h('span.rrow-role', b.role + (b.years ? ', ' + b.years + ' years' : ''))]),
+          /* the photo and the name both open the barber's card */
+          h('button.rrow-photo', { type: 'button', 'data-barber-card': b.id, 'aria-label': 'Open ' + (b.full || b.name) + '\'s card' }, [
+            h('img', { src: BC.asset('img/team/' + b.id + '-sq.webp'), alt: '', loading: 'lazy', width: 104, height: 104 }),
+            h('span.rrow-view', { 'aria-hidden': 'true' }, 'View'),
+          ]),
+          h('div.rrow-who', [h('button.rrow-name', { type: 'button', 'data-barber-card': b.id }, b.full || b.name), h('span.rrow-role', b.role + (b.years ? ', ' + b.years + ' years' : ''))]),
           h('span.rrow-skill', b.skills),
           h('button.btn.btn-ghost.btn-xs', { type: 'button', 'data-book': 'barber:' + b.id + ',step:1', 'aria-label': 'Book ' + (b.full || b.name) }, 'Book'),
         ]))),
@@ -99,7 +103,7 @@
           h('div', [h('dt', 'Parking'), h('dd', c.parking)]),
           h('div', [h('dt', 'Google'), h('dd', c.rating.toFixed(1) + ' from ' + c.reviews.toLocaleString('en-GB') + ' reviews')]),
         ]),
-        h('div.club-actions', [h('a.btn.btn-light.btn-sm', { href: '#book', 'data-book': 'club:' + c.id + ',step:1' }, 'Book at ' + c.name), h('a.btn.btn-ghost.btn-sm', { href: c.maps, target: '_blank', rel: 'noopener' }, 'Directions')]),
+        h('div.club-actions', [h('a.btn.btn-light.btn-sm', { href: '#book', 'data-book': 'club:' + c.id + ',step:1' }, 'Book at ' + c.name), h('a.btn.btn-ghost.btn-sm', { href: c.maps, target: '_blank', rel: 'noopener', 'data-directions': c.id }, 'Directions')]),
         h('div.club-map', h('iframe', { 'data-src': c.embed, title: 'Map of BalrCutz ' + c.name, loading: 'lazy', referrerpolicy: 'no-referrer-when-downgrade' })),
       ]));
     });
@@ -107,7 +111,7 @@
 
   /* Reviews: one quote at a time, slow crossfade */
   function reviews() {
-    const list = D.reviews;
+    const list = D.reviews.filter((r) => r.rotate !== false);
     let i = 0, timer = null;
     const text = BC.$('#rv-text'), by = BC.$('#rv-by'), count = BC.$('#rv-count'), fig = BC.$('#rv-quote');
     const put = () => {

@@ -342,7 +342,7 @@
     const parkingToo = RX.parking.test(t || '');
     widget(h('div.ch-places', list.map((c) => h('div.ch-place', [
       h('strong', c.name), h('p', c.address), parkingToo ? h('p', 'Parking: ' + c.parking) : null,
-      h('div.ch-actions', [h('a.ch-btn', { href: c.maps, target: '_blank', rel: 'noopener' }, 'Directions'), h('a.ch-btn.is-ghost', { href: 'tel:' + c.tel }, 'Call ' + c.phone)]),
+      h('div.ch-actions', [h('a.ch-btn', { href: c.maps, target: '_blank', rel: 'noopener', 'data-directions': c.id }, 'Directions'), h('a.ch-btn.is-ghost', { href: 'tel:' + c.tel }, 'Call ' + c.phone)]),
     ]))));
     if (parkingToo) interest('Parking');
     quick((parkingToo ? [] : [{ label: 'Parking', go: 'parking' }]).concat([{ label: 'Book a chair', go: 'book' }, { label: 'Something else', go: 'main' }]), (it) => it.go === 'main' ? mainChips() : route(it.go, t || ''));

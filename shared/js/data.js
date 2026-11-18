@@ -37,6 +37,9 @@
       rating: 5.0,
       reviews: 1227,
       maps: 'https://www.google.com/maps/place/Balr+Cutz+@+Jaya+One/@3.1174942,101.6360544,17z',
+      lat: 3.1174942, lng: 101.6360544,
+      mapsName: 'Balr Cutz @ Jaya One, Petaling Jaya',
+      from: ['KL Sentral', 'Mid Valley Megamall', 'Bangsar', 'Damansara Utama', 'Subang Jaya'],
       embed: 'https://maps.google.com/maps?q=Balr%20Cutz%20%40%20Jaya%20One%2C%20Petaling%20Jaya&t=&z=16&ie=UTF8&iwloc=&output=embed',
       setmore: 'https://balrcutz.setmore.com/',
       parking: 'Park in the Jaya One car park, then walk to Block D.',
@@ -55,6 +58,9 @@
       rating: 4.9,
       reviews: 833,
       maps: 'https://www.google.com/maps/place/Balr+Cutz+@+Hartamas/@3.1613454,101.649974,17z',
+      lat: 3.1613454, lng: 101.649974,
+      mapsName: 'Balr Cutz @ Hartamas, Kuala Lumpur',
+      from: ['KL Sentral', 'KLCC', 'Mont Kiara', 'Bangsar', 'Damansara Heights'],
       embed: 'https://maps.google.com/maps?q=Balr%20Cutz%20%40%20Hartamas%2C%20Kuala%20Lumpur&t=&z=16&ie=UTF8&iwloc=&output=embed',
       setmore: 'https://balrcutzhartamas.setmore.com/',
       parking: 'Street and open-lot parking around Jalan 26A/70A.',
@@ -146,16 +152,20 @@
       skills: 'Fades with great conversation', photo: 'img/team/crck', bio: 'Solid cuts, great energy, great conversation.' },
   ];
 
-  /* Real reviews (Google Maps and Setmore). Names shortened to first name and initial. */
+  /* Real reviews (Google Maps and Setmore). Names shortened to first name and initial. `barber` = the barber the review names.
+     `rotate: false` keeps the short ones out of the big rotating quote; they still show on the barber's card. */
   const reviews = [
-    { text: 'Hands down one of the best barber experiences I\'ve had. Big shout to my barber Michael. Professional and precise. Level of craftsmanship is tip top.', name: 'Aaron G.', club: 'jayaone', source: 'Google' },
-    { text: 'Had an incredible experience here today. Huge shoutout to Laith: top-tier precision, great conversation, and hands down one of the best cuts I\'ve had in a long time.', name: 'Islomali S.', club: 'jayaone', source: 'Google' },
-    { text: 'The ambience is perfect, especially if you\'re into sports. My barber, Mr. Issa, was friendly and gave some solid suggestions that suited me really well.', name: 'Muhammad A.', club: 'hartamas', source: 'Google' },
+    { text: 'Hands down one of the best barber experiences I\'ve had. Big shout to my barber Michael. Professional and precise. Level of craftsmanship is tip top.', name: 'Aaron G.', club: 'jayaone', source: 'Google', barber: 'micheal' },
+    { text: 'Had an incredible experience here today. Huge shoutout to Laith: top-tier precision, great conversation, and hands down one of the best cuts I\'ve had in a long time.', name: 'Islomali S.', club: 'jayaone', source: 'Google', barber: 'laith' },
+    { text: 'The ambience is perfect, especially if you\'re into sports. My barber, Mr. Issa, was friendly and gave some solid suggestions that suited me really well.', name: 'Muhammad A.', club: 'hartamas', source: 'Google', barber: 'issa' },
     { text: 'Got a haircut here for the first time as I had a wedding during the weekend. My barber did an amazing job and was an absolute professional. 11/10 service!', name: 'Mark', club: 'hartamas', source: 'Setmore' },
-    { text: 'Clean haircut, especially the fades. For a first timer I would definitely recommend the boys to get their desired haircuts at BalrCutz.', name: 'Loghan K.', club: 'jayaone', source: 'Google' },
-    { text: 'Adam did an amazing job, did my hairstyle perfectly with beard on point. I will definitely go back next time. They know "ball" if you know what I mean.', name: 'Labib', club: 'hartamas', source: 'Setmore' },
-    { text: 'Came in with an overgrown mullet, got out a better version. Got exactly what I wanted. Definitely worth a next cut!', name: 'Alven I.', club: 'jayaone', source: 'Google' },
-    { text: 'Solid haircut by Crack, great energy and conversation. Nice place, highly recommended.', name: 'Zulfadli M.', club: 'hartamas', source: 'Google' },
+    { text: 'Michale gave me a great experience, clean haircut especially the fades. For a first timer I would definitely recommend the boys to get their desired haircuts at BalrCutz.', name: 'Loghan K.', club: 'jayaone', source: 'Setmore', barber: 'micheal' },
+    { text: 'Adam did an amazing job, did my hairstyle perfectly with beard on point. I will definitely go back next time. They know "ball" if you know what I mean.', name: 'Labib', club: 'hartamas', source: 'Setmore', barber: 'adam' },
+    { text: 'Just got a haircut done by our brother Michael. Nicely done! Got exactly what I wanted. Came in with an overgrown mullet, got out a better version.', name: 'Alven I.', club: 'jayaone', source: 'Google', barber: 'micheal' },
+    { text: 'Solid haircut by Crack, great energy and conversation. Nice place, highly recommended.', name: 'Zulfadli M.', club: 'hartamas', source: 'Google', barber: 'crck' },
+    { text: 'Almendel did a great job with the haircut and service again. Worth my money and will look forward to more sessions.', name: 'Kogulan', club: 'hartamas', source: 'Setmore', barber: 'noor', rotate: false },
+    { text: 'Shoutout to Adam. Great first time and well priced as well. Music taste on point.', name: 'Zariff', club: 'hartamas', source: 'Google', barber: 'adam', rotate: false },
+    { text: 'Ammar very good one.', name: 'Lei L.', club: 'jayaone', source: 'Setmore', barber: 'ammar', rotate: false },
   ];
 
   /* Payment set-up. Methods are real Malaysian rails; the account details are placeholders the shop confirms. */

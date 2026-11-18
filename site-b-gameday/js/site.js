@@ -92,6 +92,7 @@
           h('p.jersey-role', b.role + (b.years ? ', ' + b.years + ' years' : '')),
           h('p.jersey-skills', b.skills),
           h('button.btn.btn-red.btn-sm', { type: 'button', 'data-book': 'barber:' + b.id + ',step:1' }, 'Book ' + b.name),
+          h('button.jersey-more', { type: 'button', 'data-barber-card': b.id }, 'Profile and reviews'),
         ]),
       ]));
       card.addEventListener('click', (e) => { if (!e.target.closest('button')) card.classList.toggle('is-flipped'); });
@@ -105,7 +106,7 @@
 
   /* ---------- reviews ---------- */
   function testimonials() {
-    const list = D.reviews;
+    const list = D.reviews.filter((r) => r.rotate !== false);
     const text = BC.$('#testi-text'), author = BC.$('#testi-author'), source = BC.$('#testi-source'), dots = BC.$('#testi-dots');
     let i = 0, timer = null;
     list.forEach((r, k) => dots.appendChild(h('button.testi-dot', { type: 'button', 'aria-label': 'Review ' + (k + 1) + ' of ' + list.length, 'aria-pressed': String(k === 0), on: { click: () => { show(k); auto(); } } })));
@@ -143,7 +144,7 @@
             h('li', [ico('star'), c.rating.toFixed(1) + ' on Google from ' + c.reviews.toLocaleString('en-GB') + ' reviews']),
             h('li', [ico('car'), c.parking]),
           ]),
-          h('div.loc-btns', [h('button.btn.btn-red.btn-sm', { type: 'button', 'data-book': 'club:' + c.id + ',step:1' }, 'Book ' + c.name), h('a.btn.btn-outline.btn-sm', { href: c.maps, target: '_blank', rel: 'noopener' }, 'Get directions')]),
+          h('div.loc-btns', [h('button.btn.btn-red.btn-sm', { type: 'button', 'data-book': 'club:' + c.id + ',step:1' }, 'Book ' + c.name), h('a.btn.btn-outline.btn-sm', { href: c.maps, target: '_blank', rel: 'noopener', 'data-directions': c.id }, 'Get directions')]),
         ]),
       ]));
     });
