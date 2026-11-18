@@ -74,29 +74,32 @@
     tilt(grid);
   }
 
-  /* ---------- the roster: jerseys that flip ---------- */
+  /* ---------- the roster: jerseys that flip to a big photo, and open the barber card ---------- */
   let teamClub = 'all';
   function team(animate) {
     const grid = BC.$('#team-grid');
     grid.innerHTML = '';
     BC.teamAt(teamClub === 'all' ? null : teamClub).forEach((b) => {
       const num = b.years ? String(b.years).padStart(2, '0') : '00';
-      const card = h('article.jersey', { tabindex: '0', 'aria-label': (b.full || b.name) + ', ' + D.clubs[b.club].name }, h('div.jersey-inner', [
+      const name = b.full || b.name;
+      const card = h('article.jersey', { data: { barber: b.id } }, h('div.jersey-inner', [
         h('div.jersey-front', { 'aria-hidden': 'true' }, [
           h('div.jersey-shirt', [h('span.jersey-name', b.name.toUpperCase()), h('span.jersey-num', num), h('img.jersey-mark', { src: BC.asset('img/logo/mark-maroon.png'), alt: '' })]),
-          h('span.jersey-club', D.clubs[b.club].name),
+          h('span.jersey-club', [D.clubs[b.club].name, h('i', 'Tap for card')]),
         ]),
         h('div.jersey-back', [
-          h('img.jersey-photo', { src: BC.asset(b.photo + '-bw.webp'), alt: '', loading: 'lazy', width: 120, height: 150 }),
-          h('h3', b.full || b.name),
+          /* the photo is the way in: it opens the barber card, same as the photos in The Clubhouse */
+          h('button.jersey-photo', { type: 'button', 'data-barber-card': b.id, 'aria-label': 'Open ' + name + '\'s card' }, [
+            h('img', { src: BC.asset('img/team/' + b.id + '-sq.webp'), alt: '', loading: 'lazy', width: 240, height: 240 }),
+            h('span', { 'aria-hidden': 'true' }, 'View card'),
+          ]),
+          h('h3', name),
           h('p.jersey-role', b.role + (b.years ? ', ' + b.years + ' years' : '')),
-          h('p.jersey-skills', b.skills),
           h('button.btn.btn-red.btn-sm', { type: 'button', 'data-book': 'barber:' + b.id + ',step:1' }, 'Book ' + b.name),
-          h('button.jersey-more', { type: 'button', 'data-barber-card': b.id }, 'Profile and reviews'),
         ]),
       ]));
-      card.addEventListener('click', (e) => { if (!e.target.closest('button')) card.classList.toggle('is-flipped'); });
-      card.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target === card) card.classList.toggle('is-flipped'); });
+      /* a tap anywhere else on the jersey (the front on touch screens, the shirt before it turns) opens the card too */
+      card.addEventListener('click', (e) => { if (!e.target.closest('button')) BC.barberCard(b.id); });
       grid.appendChild(card);
     });
     BC.$$('[data-team]').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.team === teamClub)));
